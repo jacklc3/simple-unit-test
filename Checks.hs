@@ -30,5 +30,5 @@ checkCloseAbs t x y
 checkCloseRel :: (Show a, Floating a, Ord a) => a -> a -> a -> TestLog ()
 checkCloseRel p x y
     | y < x + t && y > x - t = pure ()
-    | otherwise              = makeFailedLog (show y ++ " is greater than " ++ show t ++ "% from " ++ show x)
+    | otherwise              = makeFailedLog (show y ++ " is greater than " ++ show t ++ " from " ++ show x)
     where t = p * x

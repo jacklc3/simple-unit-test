@@ -16,3 +16,18 @@ tests = do
 
 main :: IO ()
 main = putTestLog tests
+
+{-
+Output from running this compiled executable:
+
+$ ./example
+Ran 9 test cases.
+Successes: 3. Failures: 6.
+
+Failure in test 0: Check is False
+Failure in test 2: 4 does not equal 3
+Failure in test 3: 25 does not equal 24
+Failure in test 5: 25 does not equal 24
+Failure in test 6: Difference between 3 and 7 is greater than 2
+Failure in test 8: 4.0 is greater than 3.005e-2 from 3.005
+-}
