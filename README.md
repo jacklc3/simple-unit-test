@@ -1,6 +1,6 @@
-# simple-unit-test
+# Simple Haskell Unit Tester
 
-A simple haskell monadic unit testing tool
+A simple, haskell, monadic, unit testing tool
 
 ## Future Improvements
 
