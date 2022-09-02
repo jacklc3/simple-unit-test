@@ -1,7 +1,7 @@
 module Checks (
     check,
     checkEqual,
-    checkSame,
+    checkEquivalent,
     checkCloseAbs,
     checkCloseRel
 ) where
@@ -17,8 +17,8 @@ checkEqual x y
     | x == y    = sTestLog
     | otherwise = fTestLog (show x ++ " does not equal " ++ show y)
 
-checkSame :: (Show a, Show b) => a -> b -> TestLog ()
-checkSame x y
+checkEquivalent :: (Show a, Show b) => a -> b -> TestLog ()
+checkEquivalent x y
     | show x == show y = sTestLog
     | otherwise        = fTestLog (show x ++ " is different to " ++ show y)
 

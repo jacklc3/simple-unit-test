@@ -18,19 +18,19 @@ instance Functor TestLog where
 
 instance Applicative TestLog where
     pure x = TestLog x 0 []
-    (TestLog g m es) <*> (TestLog x n fs) = TestLog (g x) (n + m) (es ++ updateFailures n fs)
+    (TestLog g m es) <*> (TestLog x n fs) = TestLog (g x) (n + m) (updateFailures n fs ++ es)
 
 instance Monad TestLog where
-    (TestLog x n es) >>= g = TestLog y (n + m) (es ++ updateFailures n fs)
+    (TestLog x n es) >>= g = TestLog y (n + m) (updateFailures n fs ++ es)
         where (TestLog y m fs) = g x
 
 showFailures :: Failures -> String
-showFailures = intercalate "\n" . fmap (\(n,f) -> "Failure in test " ++ show n ++ ": " ++ f)
+showFailures = foldl (\e (n,f) -> "\nFailure in test " ++ show n ++ ": " ++ f ++ e) ""
 
 instance Show (TestLog a) where
     show (TestLog _ n fs) =
         "Ran " ++ show n ++ " test cases.\nSuccesses: " ++ show m ++
-        ". Failures: " ++ show (n - m) ++ ".\n\n" ++ showFailures fs
+        ". Failures: " ++ show (n - m) ++ ".\n" ++ showFailures fs
         where m = n - length fs
 
 -- Simple constructors for convenience --

@@ -10,6 +10,7 @@ tests = do
     checkEqual (f 5) 24
     checkEqual (f 5) 25
     checkEqual (f 5) 24
+    checkEquivalent (Just 3) "Just 3"
     checkCloseAbs 2 3 7
     checkCloseRel 0.01 3.005 3
     checkCloseRel 0.01 3.005 4
