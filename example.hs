@@ -3,6 +3,7 @@ import UnitTest
 f :: (Num a) => a -> a
 f x = x * x
 
+tests :: UnitTestLog
 tests = do
     check (not True)
     check (1 == 1)
@@ -16,7 +17,7 @@ tests = do
     checkCloseRel 0.01 3.005 4
 
 main :: IO ()
-main = putTestLog tests
+main = putUnitTestLog tests
 
 {-
 Output from running this compiled executable:

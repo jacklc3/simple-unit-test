@@ -1,7 +1,7 @@
 module TestLog (
-    TestLog,
-    sTestLog,
-    fTestLog
+    UnitTestLog,
+    sUnitTestLog,
+    fUnitTestLog
 ) where
 
 import Data.List
@@ -9,6 +9,7 @@ import Data.List
 type Failure = (Int, String)
 type Failures = [Failure]
 data TestLog a = TestLog a Int Failures
+type UnitTestLog = TestLog ()
 
 updateFailures :: Int -> Failures -> Failures
 updateFailures n = fmap (\(m, f) -> (n + m, f))
@@ -18,11 +19,11 @@ instance Functor TestLog where
 
 instance Applicative TestLog where
     pure x = TestLog x 0 []
-    (TestLog g m es) <*> (TestLog x n fs) = TestLog (g x) (n + m) (updateFailures n fs ++ es)
+    (TestLog g m es) <*> (TestLog x n fs) = TestLog (g x) (n + m) (updateFailures n es ++ fs)
 
 instance Monad TestLog where
-    (TestLog x n es) >>= g = TestLog y (n + m) (updateFailures n fs ++ es)
-        where (TestLog y m fs) = g x
+    (TestLog x n fs) >>= g = TestLog y (n + m) (updateFailures n es ++ fs)
+        where (TestLog y m es) = g x
 
 showFailures :: Failures -> String
 showFailures = foldl (\e (n,f) -> "\nFailure in test " ++ show n ++ ": " ++ f ++ e) ""
@@ -36,9 +37,9 @@ instance Show (TestLog a) where
 -- Simple constructors for convenience --
 
 -- Standard single success test log
-sTestLog :: TestLog ()
-sTestLog = TestLog () 1 []
+sUnitTestLog :: UnitTestLog
+sUnitTestLog = TestLog () 1 []
 
 -- Standard single failure test log from failure description
-fTestLog :: String -> TestLog ()
-fTestLog f = TestLog () 1 [(0, f)]
+fUnitTestLog :: String -> UnitTestLog
+fUnitTestLog f = TestLog () 1 [(0, f)]

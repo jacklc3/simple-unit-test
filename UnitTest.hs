@@ -1,10 +1,11 @@
 module UnitTest (
     module Checks,
-    putTestLog
+    UnitTestLog,
+    putUnitTestLog
 ) where
 
 import TestLog
 import Checks
 
-putTestLog :: TestLog a -> IO ()
-putTestLog = putStrLn . show
+putUnitTestLog :: UnitTestLog -> IO ()
+putUnitTestLog = putStrLn . show
